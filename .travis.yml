@@ -1,0 +1,32 @@
+language: objective-c
+matrix:
+  include:
+    - env: OSX=10.11
+      os: osx
+      osx_image: osx10.11
+      rvm: system
+
+before_install:
+  - BASEDIR=$(pwd)
+  - echo BASEDIR $BASEDIR
+  - echo ===== virtualenv ===========
+  - cd ${BASEDIR}
+  - wget https://pypi.python.org/packages/source/v/virtualenv/virtualenv-14.0.6.tar.gz
+  - tar -xf virtualenv-14.0.6.tar.gz
+  - echo ====== python 3.4 ==============
+  - cd ${BASEDIR}
+  - wget https://www.python.org/ftp/python/3.4.4/python-3.4.4-macosx10.6.pkg
+  - sudo installer -pkg python-3.4.4-macosx10.6.pkg -target /
+  - python3 -V
+  - ${BASEDIR}/virtualenv-14.0.6/virtualenv.py -p python3 ~/env34
+  - source ~/env34/bin/activate
+  - pip install -U pip
+  - pip install -U setuptools
+  - pip install wheel
+script:
+  - mkdir build
+  - source ~/env34/bin/activate
+  - python -V
+  - which python
+  - python setup.py install
+
