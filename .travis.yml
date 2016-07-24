@@ -29,4 +29,8 @@ script:
   - python -V
   - which python
   - python setup.py install
+notifications:
+  email:
+    on_success: change
+    on_failure: always
 
