@@ -16,7 +16,7 @@ if osfamily in ['Linux', 'Darwin']:
     compile_options.append('-g')
     compile_options.append('-Wno-unused-function')
     compile_options.append('-Wno-unneeded-internal-declaration')
-    compile_options.append('-Wno-strict-prototypes')
+    # compile_options.append('-Wno-strict-prototypes')
 
 include_dirs = []
 
