@@ -29,8 +29,7 @@ script:
   - python -V
   - which python
   - export ARCHFLAGS="-arch x86_64"
-  - export CC=/usr/bin/gcc-4.0
-  - CC=/usr/bin/gcc-4.0 python setup.py install
+  - python setup.py install
 notifications:
   email:
     on_success: change
