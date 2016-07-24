@@ -28,6 +28,7 @@ script:
   - source ~/env34/bin/activate
   - python -V
   - which python
+  - export ARCHFLAGS="-arch x86_64"
   - python setup.py install
 notifications:
   email:
