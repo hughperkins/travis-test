@@ -42,9 +42,9 @@ int main( int argc, char *argv[] ) {
     cl_program program;
 
     checkError( clGetPlatformIDs(1, &platform_id, &num_platforms) );
-    checkError(  clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, 1, &device, &num_devices) );
+    checkError(  clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_ANY, 1, &device, &num_devices) );
     device_ids = new cl_device_id[num_devices];
-    checkError( clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, num_devices, device_ids, &num_devices) );
+    checkError( clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_ANY, num_devices, device_ids, &num_devices) );
     device = device_ids[0];
     ctx = clCreateContext(0, 1, &device, NULL, NULL, &err);
     checkError(err);
