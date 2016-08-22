@@ -11,9 +11,9 @@ script:
 - mkdir boost
 - mkdir boost/boost
 - cd boost/boost
-- tar -xf boost-1.61.0.tar.bz2
+- tar -xf ../../boost-1.61.0.tar.bz2
 - ls
 - cd ../..
 - ls
-- g++ -g -I/usr/include -std=c++11 -Iboost -o test1 test1.cpp -lOpenCL
+- clang -framework OpenCL -g -I/usr/include -std=c++11 -Iboost -o test1 test1.cpp
 - ./test1

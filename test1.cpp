@@ -3,7 +3,7 @@
 #include <stdexcept>
 using namespace std;
 
-#include "CL/cl.h"
+#include <OpenCL/OpenCL.h>
 
 #include <boost/compute/core.hpp>
 #include <boost/compute/iterator/buffer_iterator.hpp>
