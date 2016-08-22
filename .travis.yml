@@ -15,5 +15,5 @@ script:
 - ls
 - cd ../..
 - ls
-- clang -framework OpenCL -g -I/usr/include -std=c++11 -Iboost -o test1 test1.cpp
+- clang++ -framework OpenCL -g -I/usr/include -std=c++11 -Iboost -o test1 test1.cpp
 - ./test1
