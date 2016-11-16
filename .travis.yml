@@ -3,17 +3,33 @@ matrix:
   include:
     - env: OSX=10.11
       os: osx
-      osx_image: xcode7.3
+      osx_image: osx10.11
       rvm: system
 
+before_install:
+  - if [ -f ".git/shallow" ]; then travis_retry git fetch --unshallow; fi
+  - BASEDIR=$(pwd)
+  - echo BASEDIR ${BASEDIR}
+  - mkdir soft
+  - cd soft
+  - CLANG_VERSION=3.8.0
+  - wget http://llvm.org/releases/${CLANG_VERSION}/clang+llvm-${CLANG_VERSION}-x86_64-apple-darwin.tar.xz
+  - tar -xf clang+llvm-${CLANG_VERSION}-x86_64-apple-darwin.tar.xz
+  - ls
+  - export CLANG_HOME=${PWD}/clang+llvm-${CLANG_VERSION}-x86_64-apple-darwin
+  - ls ${CLANG_HOME}
+
 script:
-- wget http://deepcl.hughperkins.com/Downloads/boost-1.61.0.tar.bz2
-- mkdir boost
-- mkdir boost/boost
-- cd boost/boost
-- tar -xf ../../boost-1.61.0.tar.bz2
-- ls
-- cd ../..
-- ls
-- clang++ -framework OpenCL -g -I/usr/include -std=c++11 -Iboost -o test1 test1.cpp
-- ./test1
+  - cd ${BASEDIR}
+  - mkdir build
+  - cd build
+  - echo CLANG_HOME ${CLANG_HOME}
+  - ls ${CLANG_HOME}/lib
+  - cmake .. -DCLANG_HOME=${CLANG_HOME}
+  - make -j 8
+  - ./test_llvm_valuemap
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
