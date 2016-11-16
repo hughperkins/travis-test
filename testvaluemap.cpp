@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <memory>
+#include <cassert>
 
 using namespace std;
 using namespace llvm;
