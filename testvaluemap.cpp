@@ -15,6 +15,10 @@
 using namespace std;
 using namespace llvm;
 
+__attribute__((global)) void somekernel(float *data) {
+    data[0] =123.0f;
+}
+
 int main(int argc, char *argv[]) {
     LLVMContext context;
 
