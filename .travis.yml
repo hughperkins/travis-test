@@ -19,6 +19,7 @@ before_install:
 
 script:
   - cd ${BASEDIR}
+  - ${CLANG_HOME}/bin/clang++ -### -c ${BASEDIR}/testvaluemap.cpp
   - mkdir build
   - cd build
   - bash ../buildir.sh
