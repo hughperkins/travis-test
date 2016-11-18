@@ -22,22 +22,26 @@ case `uname` in
         ;;
 esac
 
-${CLANG_HOME}/bin/clang++ -std=c++11 -x cuda --cuda-host-only -emit-llvm -O0 -S \
-    -D__STDC_CONSTANT_MACROS  -D__STDC_LIMIT_MACROS \
+${CLANG_HOME}/bin/clang++ \
+    -std=c++11 -x cuda \
+    --cuda-gpu-arch=sm_30 --cuda-device-only -emit-llvm -O0 -S \
+    ${ADDFLAGS} \
+    ${LLVM_COMPILE_FLAGS} \
+    -I${CLANG_HOME}/include \
+    ../testvaluemap.cpp -o testvaluemap-device.ll
+# cat testvaluemap-device.ll
+
+#    -D__STDC_CONSTANT_MACROS  -D__STDC_LIMIT_MACROS \
+
+${CLANG_HOME}/bin/clang++ \
+    -std=c++11 -x cuda --cuda-host-only -emit-llvm -O0 -S \
     ${ADDFLAGS} \
     ${LLVM_COMPILE_FLAGS} \
     -I${CLANG_HOME}/include \
     ../testvaluemap.cpp -o testvaluemap-hostraw.ll
 # head testvaluemap-hostraw.ll
 
-${CLANG_HOME}/bin/clang++ -std=c++11 -x cuda \
-    --cuda-gpu-arch=sm_30 --cuda-device-only -emit-llvm -O0 -S \
-    -D__STDC_CONSTANT_MACROS  -D__STDC_LIMIT_MACROS \
-    ${ADDFLAGS} \
-    ${LLVM_COMPILE_FLAGS} \
-    -I${CLANG_HOME}/include \
-    ../testvaluemap.cpp -o testvaluemap-device.ll
-# cat testvaluemap-device.ll
+#    -D__STDC_CONSTANT_MACROS  -D__STDC_LIMIT_MACROS \
 
 ${CLANG_HOME}/bin/clang++ -c -fPIC ${LLVM_COMPILE_FLAGS} -o testvaluemap.o testvaluemap-hostraw.ll
 
