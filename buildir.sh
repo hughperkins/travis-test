@@ -41,11 +41,12 @@ ${CLANG_HOME}/bin/clang++ -std=c++11 -x cuda \
 
 ${CLANG_HOME}/bin/clang++ -c -fPIC ${LLVM_COMPILE_FLAGS} -o testvaluemap.o testvaluemap-hostraw.ll
 
-set +e
+# set +e
 nm testvaluemap.o | grep main
 ${NATIVE_COMPILER} -pie -o testvaluemap testvaluemap.o ${LLVM_LINK_FLAGS}
-${NATIVE_COMPILER} -pie -o testvaluemap testvaluemap.o ${LLVM_LINK_FLAGS} ${ADD_LINKFLAGS}
+ls -l
+# ${NATIVE_COMPILER} -pie -o testvaluemap testvaluemap.o ${LLVM_LINK_FLAGS} ${ADD_LINKFLAGS}
 
-set -e
+# set -e
 ls -l
 ./testvaluemap
