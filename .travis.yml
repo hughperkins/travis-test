@@ -35,4 +35,4 @@ addons:
     debug: true
     s3_region: "us-east-1" # defaults to "us-east-1"
     paths:
-    - $(ls build/*)
+    - $(ls /Users/travis/build/hughperkins/travis-test/build/*)
