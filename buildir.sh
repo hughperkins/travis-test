@@ -8,11 +8,13 @@ LLVM_COMPILE_FLAGS=`${CLANG_HOME}/bin/llvm-config --cppflags --cxxflags | sed -e
 echo LLVM_LINK_FLAGS ${LLVM_LINK_FLAGS}
 
 export ADDFLAGS=
+export ADD_LINKFLAGS=
 export NATIVE_COMPILER=g++
 case `uname` in
     Darwin)
         ADDFLAGS="-stdlib=libc++"
         NATIVE_COMPILER=clang++
+        ADD_LINKFLAGS=-lc++
         ;;
     *)
         ;;
@@ -35,7 +37,7 @@ ${CLANG_HOME}/bin/clang++ -std=c++11 -x cuda \
 
 ${CLANG_HOME}/bin/clang++ -c -fPIC ${LLVM_COMPILE_FLAGS} -o testvaluemap.o testvaluemap-hostraw.ll
 
-${NATIVE_COMPILER} -pie -o testvaluemap testvaluemap.o ${LLVM_LINK_FLAGS}
+${NATIVE_COMPILER} -pie -o testvaluemap testvaluemap.o ${LLVM_LINK_FLAGS} ${ADD_LINKFLAGS}
 
 ls -l
 ./testvaluemap
