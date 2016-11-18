@@ -3,8 +3,10 @@
 set -x
 set -e
 
-LLVM_LINK_FLAGS=`${CLANG_HOME}/bin/llvm-config --ldflags --system-libs --libs all`
 LLVM_COMPILE_FLAGS=`${CLANG_HOME}/bin/llvm-config --cppflags --cxxflags | sed -e 's/ -fno-exceptions/ -fexceptions/g' -e 's/ -DNDEBUG//g' -e 's/ -std=c++0x/ -std=c++11/g' -e 's% -isysroot [^ ]*%%g'`
+echo LLVM_COMPILE_FLAGS ${LLVM_COMPILE_FLAGS}
+
+LLVM_LINK_FLAGS=`${CLANG_HOME}/bin/llvm-config --ldflags --system-libs --libs all`
 echo LLVM_LINK_FLAGS ${LLVM_LINK_FLAGS}
 
 export ADDFLAGS=
