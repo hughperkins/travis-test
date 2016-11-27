@@ -22,6 +22,7 @@ before_install:
   - export PATH=$HOME/bin:$PATH
   - bazel version
   - which bazel
+  - time bazel build //...
   - echo ======== bazel test ===============
   - cd ${BASEDIR}
   - bash ${BASEDIR}/travis/upload.sh
