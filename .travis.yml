@@ -28,6 +28,9 @@ before_install:
   - mkdir -p build
   - cd build
   - cmake .. -DBUILD_TESTS=ON -DCLANG_HOME=${CLANG_HOME}
+  - make -j 4
+  - sudo make install
+  - bash ${BASEDIR}/travis/upload.sh cocl ${BASEDIR}/cuda-on-cl
   - echo =============== bazel =====================
   - mkdir -p ${BASEDIR}/soft
   - cd ${BASEDIR}/soft
@@ -42,7 +45,6 @@ before_install:
   - cd ${BASEDIR}
   - time bazel --batch build //...
   - bash ${BASEDIR}/travis/upload.sh bazelcache /private/var/tmp/_bazel_travis
-  - bash ${BASEDIR}/travis/upload.sh cocl ${BASEDIR}/cuda-on-cl
 script:
   - ls
 notifications:
