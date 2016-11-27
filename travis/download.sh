@@ -10,7 +10,7 @@ echo CACHE_COUNT ${CACHE_COUNT}
 if [[ ${CACHE_COUNT} != 0 ]]; then {
     mkdir -p ${BASEL_CACHE}
     cd ${BASEL_CACHE}
-    aws s3 cp ${S3_CACHE_DIR}/bazel.tar.bz2 bazel.tar.bz2
-    tar -xf bazel.tar.bz2
+    time aws s3 cp ${S3_CACHE_DIR}/bazel.tar.bz2 bazel.tar.bz2
+    time tar -xf bazel.tar.bz2
     ls
 } fi
