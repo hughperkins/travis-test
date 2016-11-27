@@ -12,7 +12,8 @@ before_install:
   - export TIME=%e
   - time sleep 1.6
   - /usr/bin/time sleep 1.9
-  - res = $(/usr/bin/time sleep 1.9)
+  - /usr/bin/time -f %e sleep 1.9
+  - res=`/usr/bin/time -f %e sleep 1.9`
   - echo res ${res}
   - if [ $(echo "$res < 2.3" | bc -l) ]; then { echo yes; } else { echo no; } fi
   - if [ $(echo "$res < 1.7" | bc -l) ]; then { echo yes; } else { echo no; } fi
