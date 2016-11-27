@@ -9,9 +9,9 @@ matrix:
 before_install:
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
-  - start=`python ${BASEDIR}/seconds.py`
+  - start=`python ${BASEDIR}/travis/seconds.py`
   - sleep 4
-  - end=`python ${BASEDIR}/seconds.py`
+  - end=`python ${BASEDIR}/travis/seconds.py`
   - echo start $start end $end
   - if [ `echo "$end - $start > 3" | bc -l` -eq 1 ]; then { echo yes; } else { echo no; } fi
   - if [ `echo "$end - $start > 5" | bc -l` -eq 1 ]; then { echo yes; } else { echo no; } fi
