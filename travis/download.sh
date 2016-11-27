@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 CACHE_NAME=$1
 CACHED_PATH=$2
 
