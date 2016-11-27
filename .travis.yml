@@ -9,9 +9,9 @@ matrix:
 before_install:
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
-  - echo GIT_BRANCH $GIT_BRANCH
+  - echo TRAVIS_BRANCH $TRAVIS_BRANCH
   - pip install --user awscli
-  - ~/Library/Python/2.7/bin/aws s3 ls s3://hughperkinstravis
+  - bash ${BASEDIR}/travis/download.sh
   - echo =============== bazel =====================
   - mkdir -p ${BASEDIR}/soft
   - cd ${BASEDIR}/soft
@@ -24,14 +24,7 @@ before_install:
   - which bazel
   - echo ======== bazel test ===============
   - cd ${BASEDIR}
-  - bazel build //...
-  - ls -lh
-  - ls -lh ~/.cache
-  - ls -lh ~/.cache/bazel
-  - cd ~/.cache/bazel
-  - tar -cjf bazel.tar.bz2 *
-  - ls -lh
-  - ~/Library/Python/2.7/bin/aws s3 cp bazel.tar.bz2 s3://hughperkinstravis/cache/test-bazel.tar.bz2
+  - bash ${BASEDIR}/travis/upload.sh
 script:
   - ls
 notifications:
