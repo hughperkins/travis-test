@@ -13,6 +13,8 @@ before_install:
   - sleep 4
   - end=`python ${BASEDIR}/travis/seconds.py`
   - echo start $start end $end
+  - echo diff `echo "$end - $start" | bc -l`
+  - echo diff: $(($end - $start))
   - if [ `echo "$end - $start > 3" | bc -l` -eq 1 ]; then { echo yes; } else { echo no; } fi
   - if [ `echo "$end - $start > 5" | bc -l` -eq 1 ]; then { echo yes; } else { echo no; } fi
 script:
