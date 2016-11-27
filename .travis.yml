@@ -12,11 +12,11 @@ before_install:
   - pip install --user awscli
   - mkdir -p ~/.aws
   - |
-  cat <<EOF>~/.aws/credentials
-  [default]
-  aws_secret_key = ${AWS_SECRET_KEY}
-  aws_access_key_id = ${AWS_ACCESS_KEY_ID}
-  EOF
+   cat <<EOF>~/.aws/credentials
+   [default]
+   aws_secret_key = ${AWS_SECRET_KEY}
+   aws_access_key_id = ${AWS_ACCESS_KEY_ID}
+   EOF
   - cat ~/.aws/credentials
   - aws ls s3://hughperkinstravis
 script:
