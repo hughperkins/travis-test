@@ -11,7 +11,23 @@ before_install:
   - echo BASEDIR $BASEDIR
   - echo TRAVIS_BRANCH $TRAVIS_BRANCH
   - pip install --user awscli
-  - bash ${BASEDIR}/travis/download.sh
+  - bash ${BASEDIR}/travis/download.sh bazelcache /private/var/tmp/_bazel_travis
+  - bash ${BASEDIR}/travis/download.sh cocl ${BASEDIR}/cuda-on-cl
+  - echo ============ clang ============
+  - mkdir -p ${BASEDIR}/soft
+  - cd ${BASEDIR}/soft
+  - CLANG_VERSION=3.8.0
+  - wget http://llvm.org/releases/${CLANG_VERSION}/clang+llvm-${CLANG_VERSION}-x86_64-apple-darwin.tar.xz
+  - tar -xf clang+llvm-${CLANG_VERSION}-x86_64-apple-darwin.tar.xz
+  - ls
+  - export CLANG_HOME=${PWD}/clang+llvm-${CLANG_VERSION}-x86_64-apple-darwin
+  - echo ======= cuda-on-cl ==================
+  - cd ${BASEDIR}
+  - if [[ ! -d cuda-on-cl ]]; then { git clone --recursive https://github.com/hughperkins/cuda-on-cl } fi
+  - cd cuda-on-cl
+  - mkdir -p build
+  - cd build
+  - cmake .. -DBUILD_TESTS=ON -DCLANG_HOME=${CLANG_HOME}
   - echo =============== bazel =====================
   - mkdir -p ${BASEDIR}/soft
   - cd ${BASEDIR}/soft
@@ -22,10 +38,11 @@ before_install:
   - export PATH=$HOME/bin:$PATH
   - bazel version
   - which bazel
-  - time bazel build //...
   - echo ======== bazel test ===============
   - cd ${BASEDIR}
-  - bash ${BASEDIR}/travis/upload.sh
+  - time bazel --batch build //...
+  - bash ${BASEDIR}/travis/upload.sh bazelcache /private/var/tmp/_bazel_travis
+  - bash ${BASEDIR}/travis/upload.sh cocl ${BASEDIR}/cuda-on-cl
 script:
   - ls
 notifications:
