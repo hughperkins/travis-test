@@ -15,7 +15,7 @@ before_install:
   - echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}">>~/.aws/credentials
   - cat ~/.aws/credentials
   - pip install --user awscli
-  - ~/.local/bin/aws ls s3://hughperkinstravis
+  - ~/Library/Python/2.7/bin/aws ls s3://hughperkinstravis
 script:
   - ls
 notifications:
