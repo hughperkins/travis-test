@@ -9,14 +9,12 @@ matrix:
 before_install:
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
-  - export TIME=%e
-  - time sleep 1.6
-  - /usr/bin/time sleep 1.9
-  - /usr/bin/time -f %e sleep 1.9
-  - res=`/usr/bin/time -f %e sleep 1.9`
-  - echo res ${res}
-  - if [ $(echo "$res < 2.3" | bc -l) ]; then { echo yes; } else { echo no; } fi
-  - if [ $(echo "$res < 1.7" | bc -l) ]; then { echo yes; } else { echo no; } fi
+  - start=`python ${BASEDIR}/seconds.py`
+  - sleep 4
+  - end=`python ${BASEDIR}/seconds.py`
+  - echo start $start end $end
+  - if [ `echo "$end - $start > 3" | bc -l` -eq 1 ]; then { echo yes; } else { echo no; } fi
+  - if [ `echo "$end - $start > 5" | bc -l` -eq 1 ]; then { echo yes; } else { echo no; } fi
 script:
   - ls
 notifications:
