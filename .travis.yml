@@ -9,28 +9,17 @@ matrix:
 before_install:
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
-  - echo ===== virtualenv ===========
-  - cd ${BASEDIR}
-  - wget https://pypi.python.org/packages/source/v/virtualenv/virtualenv-14.0.6.tar.gz
-  - tar -xf virtualenv-14.0.6.tar.gz
-  - echo ====== python 3.4 ==============
-  - cd ${BASEDIR}
-  - wget https://www.python.org/ftp/python/3.4.4/python-3.4.4-macosx10.6.pkg
-  - sudo installer -pkg python-3.4.4-macosx10.6.pkg -target /
-  - python3 -V
-  - ${BASEDIR}/virtualenv-14.0.6/virtualenv.py -p python3 ~/env34
-  - source ~/env34/bin/activate
-  - pip install -U pip
-  - pip install -U setuptools
-  - pip install wheel
+  - export TIME=%e
+  - time sleep 1.6
+  - /usr/bin/time sleep 1.9
+  - res = $(/usr/bin/time sleep 1.9)
+  - echo res ${res}
+  - if [ $(echo "$res < 2.3" | bc -l) ]; then { echo yes; } else { echo no; } fi
+  - if [ $(echo "$res < 1.7" | bc -l) ]; then { echo yes; } else { echo no; } fi
 script:
-  - mkdir build
-  - source ~/env34/bin/activate
-  - python -V
-  - which python
-  - python setup.py install
+  - ls
 notifications:
   email:
-    on_success: change
-    on_failure: always
+    on_success: never
+    on_failure: never
 
