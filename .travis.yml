@@ -17,7 +17,8 @@ before_install:
     aws_secret_key = ${AWS_SECRET_KEY}
     aws_access_key_id = ${AWS_ACCESS_KEY_ID}
     EOF
-    aws ls s3://hughperkinstravis
+  - cat ~/.aws/credentials
+  - aws ls s3://hughperkinstravis
 script:
   - ls
 notifications:
