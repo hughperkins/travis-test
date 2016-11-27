@@ -27,8 +27,8 @@ before_install:
   - cd cuda-on-cl
   - mkdir -p build
   - cd build
-  - cmake .. -DBUILD_TESTS=ON -DCLANG_HOME=${CLANG_HOME}
-  - make -j 4
+  - time cmake .. -DBUILD_TESTS=ON -DCLANG_HOME=${CLANG_HOME}
+  - time make -j 4
   - sudo make install
   - bash ${BASEDIR}/travis/upload.sh cocl ${BASEDIR}/cuda-on-cl
   - echo =============== bazel =====================
