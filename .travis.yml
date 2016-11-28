@@ -17,6 +17,9 @@ before_install:
   - echo diff: $(($end - $start))
   - if [ `echo "$end - $start > 3" | bc -l` -eq 1 ]; then { echo yes; } else { echo no; } fi
   - if [ `echo "$end - $start > 5" | bc -l` -eq 1 ]; then { echo yes; } else { echo no; } fi
+  - time tar -czf /tmp/foo.tar.gz /usr/local/bin
+  - ls -lh /tmp/foo.tar.gz
+  - pigz
 script:
   - ls
 notifications:
