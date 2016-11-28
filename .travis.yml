@@ -9,39 +9,14 @@ matrix:
 before_install:
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
-  - wget http://www.zlib.net/pigz/pigz-2.3.4.tar.gz
-  - tar -xf pigz-2.3.4.tar.gz
-  - cd pigz-2.3.4
-  - make -j 4
-  - sudo cp pigz unpigz /usr/local/bin
-  - time tar -czf /tmp/foo.tar.gz /usr/local/bin
-  - time tar -cjf /tmp/foo.tar.bz2 /usr/local/bin
-  - time tar -c /usr/local/bin | pigz > /tmp/foo.tar.pigz
-  - ls -lh /tmp/foo*
-  - time tar -czf /tmp/lib.tar.gz /usr/local/lib
-  - time tar -cjf /tmp/lib.tar.bz2 /usr/local/lib
-  - time tar -c /usr/local/lib | pigz > /tmp/lib.tar.pigz
-  - ls -lh /tmp/lib.*
-
-  - mkdir f1
-  - cd f1
-  - time tar -xf /tmp/lib.tar.gz
-  - ls
-  - cd ..
-
-  - mkdir f2
-  - cd f2
-  - time tar -xf /tmp/lib.tar.bz2
-  - ls
-  - cd ..
-
-  - mkdir f3
-  - cd f3
-  - time cat /tmp/lib.tar.pigz | unpigz | tar -x
-  - ls
-  - cd ..
+  - /bin/sleep 20 &
+  - after sleep
+  - ps -ef | grep sleep
+  - ps -ef | grep sleep | grep -v grep | awk '{print $2}' | xargs -L1 kill 
+  - after ps
+  - ps -ef | grep sleep
 script:
-  - ls /tmp/foo*
+  - whoami
 notifications:
   email:
     on_success: never
