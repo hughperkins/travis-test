@@ -9,15 +9,8 @@ matrix:
 before_install:
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
-  - start=`python ${BASEDIR}/travis/seconds.py`
-  - sleep 4
-  - end=`python ${BASEDIR}/travis/seconds.py`
-  - echo start $start end $end
-  - echo diff `echo "$end - $start" | bc -l`
-  - echo diff: $(($end - $start))
-  - if [ `echo "$end - $start > 3" | bc -l` -eq 1 ]; then { echo yes; } else { echo no; } fi
-  - if [ `echo "$end - $start > 5" | bc -l` -eq 1 ]; then { echo yes; } else { echo no; } fi
   - time tar -czf /tmp/foo.tar.gz /usr/local/bin
+  - time tar -cjf /tmp/foo.tar.bz2 /usr/local/bin
   - ls -lh /tmp/foo.tar.gz
   - pigz
 script:
