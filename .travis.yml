@@ -9,14 +9,20 @@ matrix:
 before_install:
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
+  - wget http://www.zlib.net/pigz/pigz-2.3.4.tar.gz
+  - tar -xf pigz-2.3.4.tar.gz
+  - cd pigz-2.3.4
+  - make -j 4
+  - sudo cp pigz unpigz /usr/local/bin
   - time tar -czf /tmp/foo.tar.gz /usr/local/bin
   - time tar -cjf /tmp/foo.tar.bz2 /usr/local/bin
-  - ls -lh /tmp/foo.tar.gz
-  - pigz
+  - ls -lh /tmp/foo*
+  - pigz --version
+  - time tar -c /usr/local/bin | pigz > /tmp/foo.tar.pigz
+  - ls -lh /tmp/foo*
 script:
   - ls
 notifications:
   email:
     on_success: never
     on_failure: never
-
