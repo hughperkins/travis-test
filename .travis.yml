@@ -16,12 +16,32 @@ before_install:
   - sudo cp pigz unpigz /usr/local/bin
   - time tar -czf /tmp/foo.tar.gz /usr/local/bin
   - time tar -cjf /tmp/foo.tar.bz2 /usr/local/bin
-  - ls -lh /tmp/foo*
-  - pigz --version
   - time tar -c /usr/local/bin | pigz > /tmp/foo.tar.pigz
   - ls -lh /tmp/foo*
-script:
+  - time tar -czf /tmp/lib.tar.gz /usr/local/lib
+  - time tar -cjf /tmp/lib.tar.bz2 /usr/local/lib
+  - time tar -c /usr/local/lib | pigz > /tmp/lib.tar.pigz
+  - ls -lh /tmp/lib.*
+
+  - mkdir f1
+  - cd f1
+  - time tar -xf /tmp/lib.tar.gz
   - ls
+  - cd ..
+
+  - mkdir f2
+  - cd f2
+  - time tar -xf /tmp/lib.tar.bz2
+  - ls
+  - cd ..
+
+  - mkdir f2
+  - cd f2
+  - time cat /tmp/lib.tar.pigz | unpigz | tar -x
+  - ls
+  - cd ..
+script:
+  - ls /tmp/foo*
 notifications:
   email:
     on_success: never
