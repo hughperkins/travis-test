@@ -35,8 +35,8 @@ before_install:
   - ls
   - cd ..
 
-  - mkdir f2
-  - cd f2
+  - mkdir f3
+  - cd f3
   - time cat /tmp/lib.tar.pigz | unpigz | tar -x
   - ls
   - cd ..
