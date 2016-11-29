@@ -10,7 +10,7 @@ before_install:
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
   - /bin/sleep 20 &
-  - after sleep
+  - echo after sleep
   - ps -ef | grep sleep
   - ps -ef | grep sleep | grep -v grep | awk '{print $2}' | xargs -L1 kill 
   - after ps
