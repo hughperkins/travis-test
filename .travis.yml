@@ -9,12 +9,23 @@ matrix:
 before_install:
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
-  - /bin/sleep 20 &
-  - echo after sleep
-  - ps -ef | grep sleep
-  - ps -ef | grep sleep | grep -v grep | awk '{print $2}' | xargs -L1 kill 
-  - echo after ps
-  - ps -ef | grep sleep
+  - echo =============== bazel =====================
+  - bash ${BASEDIR}/travis/install-bazel.sh
+  - export PATH=$HOME/bin:$PATH
+  - cd ${BASEDIR}
+  - git clone --recursive https://github.com/tensorflow/tensorflow
+  - echo ======= py27 ===============
+  - pip install --upgrade setuptools
+  - pip install --upgrade wheel
+  - pip install --upgrade pip
+  - pip install numpy
+  - cd ${BASEDIR}/tensorflow
+  - bash ${BASEDIR}/travis/run-configure.sh
+  - bazel --batch fetch //tensorflow/... &
+  - ps -ef
+  - ps -ef | grep bazel | grep -v grep | awk '{print $2}' | xargs -L1 kill
+  - echo after ps kill
+  - ps -ef
 script:
   - whoami
 notifications:
