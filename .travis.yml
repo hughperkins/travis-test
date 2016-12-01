@@ -9,10 +9,9 @@ matrix:
 before_install:
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
-
-  - python test_platform.py
-  - bash ${BASEDIR}/travis/install-python.sh
-  - python3 test_platform.py
+  - pip install --user awscli
+  - echo hello > /tmp/foo
+  - ~/Library/Python/2.7/bin/aws s3 cp --quiet /tmp/foo s3://hughperkinstravis/tmp/test.foo
 
 script:
   - whoami
