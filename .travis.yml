@@ -15,7 +15,7 @@ before_install:
   - aws s3 ls s3://hughperkinstravis/
   - aws s3 cp s3://hughperkinstravis/cache/tensorflow-cl/travis/tensorflowpkg-92-ae67113.tar.gz ${BASEDIR}/tensorflowpkg-92-ae67113.tar.gz
   - tar -xf tensorflowpkg-92-ae67113.tar.gz
-  - unzip tensorflow-0.11.0rc0-py3-none-any.whl
+  - unzip -q tensorflow-0.11.0rc0-py3-none-any.whl
   - ls -lh tensorflow/third_party/cuda-on-cl
   - otool -D tensorflow/third_party/cuda-on-cl/libcocl.dylib
   - otool -L tensorflow/third_party/cuda-on-cl/libcocl.dylib
@@ -24,7 +24,10 @@ before_install:
   - otool -D tensorflow/python/_pywrap_tensorflow.so
   - otool -L tensorflow/python/_pywrap_tensorflow.so
   - otool -l tensorflow/python/_pywrap_tensorflow.so | grep LC_RPATH -A2
-  - pip3 install --upgrade tensorflow-0.11.0rc0-py3-none-any.whl
+   - pip3 install --upgrade tensorflow-0.11.0rc0-py3-none-any.whl
+  #- install_name_tool -change tensorflow/python/_pywrap_tensorflow.so
+  - mkdir -p /Users/travis/build/hughperkins/tensorflow-cl/third_party/cuda-on-cl/build/
+  - cp tensorflow/third_party/cuda-on-cl/*.dylib /Users/travis/build/hughperkins/tensorflow-cl/third_party/cuda-on-cl/build/
   - python3 -c 'from tensorflow.python import _pywrap_tensorflow'
   - python3 -c 'from tensorflow.python import pywrap_tensorflow'
 
