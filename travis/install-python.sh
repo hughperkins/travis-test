@@ -6,18 +6,18 @@ cd ${BASEDIR}
 
 PYTHON_DIR=/Library/Frameworks/Python.framework/Versions/3.5
 
-# bash ${BASEDIR}/travis/download.sh pythoninstall /tmp/pycopy
-# sudo mkdir -p ${PYTHON_DIR}
-# sudo rsync -a /tmp/pycopy/ ${PYTHON_DIR}/
+bash ${BASEDIR}/travis/download.sh pythoninstall /tmp/pycopy
+sudo mkdir -p ${PYTHON_DIR}
+sudo rsync -a /tmp/pycopy/ ${PYTHON_DIR}/
 
 wget https://www.python.org/ftp/python/3.5.2/python-3.5.2-macosx10.6.pkg
 sudo installer -pkg python-3.5.2-macosx10.6.pkg -target /
 
-# NUMPY_COUNT=$(pip3 freeze | grep numpy | wc -l)
-# echo NUMPY_COUNT ${NUMPY_COUNT}
+NUMPY_COUNT=$(pip3 freeze | grep numpy | wc -l)
+echo NUMPY_COUNT ${NUMPY_COUNT}
 
-# if [[ ${NUMPY_COUNT} == 0 ]]; then {
-#     set -x
+if [[ ${NUMPY_COUNT} == 0 ]]; then {
+    set -x
 #     cd ${BASEDIR}
 #     python3 -V
 #     which python3
@@ -27,7 +27,7 @@ sudo installer -pkg python-3.5.2-macosx10.6.pkg -target /
 #     pip3 install --upgrade setuptools
 #     pip3 install --upgrade wheel
 #     pip3 install --upgrade pip
-#     pip3 install numpy
-#     rsync -a ${PYTHON_DIR}/ /tmp/pycopy/
-#     bash ${BASEDIR}/travis/upload.sh pythoninstall /tmp/pycopy
-# } fi
+    pip3 install numpy
+    rsync -a ${PYTHON_DIR}/ /tmp/pycopy/
+    bash ${BASEDIR}/travis/upload.sh pythoninstall /tmp/pycopy
+} fi
