@@ -11,8 +11,22 @@ before_install:
   - echo BASEDIR $BASEDIR
   - pip install --user awscli
   - bash travis/install-python.sh
-  - bash travis/build-swig.sh
-  - bash swig_build.sh
+  - PATH=~/Library/Python/2.7/bin:$PATH
+  - aws s3 ls s3://hughperkinstravis/
+  - aws s3 cp s3://hughperkinstravis/cache/tensorflow-cl/travis/tensorflowpkg-92-ae67113.tar.gz ${BASEDIR}/tensorflowpkg-92-ae67113.tar.gz
+  - tar -xf tensorflowpkg-92-ae67113.tar.gz
+  - unzip tensorflow-0.11.0rc0-py3-none-any.whl
+  - ls -lh tensorflow/third_party/cuda-on-cl
+  - otool -D tensorflow/third_party/cuda-on-cl/libcocl.dylib
+  - otool -L tensorflow/third_party/cuda-on-cl/libcocl.dylib
+  - otool -l tensorflow/third_party/cuda-on-cl/libcocl.dylib | grep LC_RPATH -A2
+  - ls -lh tensorflow/python
+  - otool -D tensorflow/python/_pywrap_tensorflow.so
+  - otool -L tensorflow/python/_pywrap_tensorflow.so
+  - otool -l tensorflow/python/_pywrap_tensorflow.so | grep LC_RPATH -A2
+  - pip3 install --upgrade tensorflow-0.11.0rc0-py3-none-any.whl
+  - python3 -c 'from tensorflow.python import _pywrap_tensorflow'
+  - python3 -c 'from tensorflow.python import pywrap_tensorflow'
 
 script:
   - whoami
