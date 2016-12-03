@@ -24,7 +24,7 @@ before_install:
   - otool -D tensorflow/python/_pywrap_tensorflow.so
   - otool -L tensorflow/python/_pywrap_tensorflow.so
   - otool -l tensorflow/python/_pywrap_tensorflow.so | grep LC_RPATH -A2
-   - pip3 install --upgrade tensorflow-0.11.0rc0-py3-none-any.whl
+  - pip3 install --upgrade tensorflow-0.11.0rc0-py3-none-any.whl
   #- install_name_tool -change tensorflow/python/_pywrap_tensorflow.so
   - mkdir -p /Users/travis/build/hughperkins/tensorflow-cl/third_party/cuda-on-cl/build/
   - cp tensorflow/third_party/cuda-on-cl/*.dylib /Users/travis/build/hughperkins/tensorflow-cl/third_party/cuda-on-cl/build/
