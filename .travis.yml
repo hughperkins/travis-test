@@ -10,8 +10,9 @@ before_install:
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
   - pip install --user awscli
-  - echo hello > /tmp/foo
-  - ~/Library/Python/2.7/bin/aws s3 cp --quiet /tmp/foo s3://hughperkinstravis/tmp/test.foo
+  - bash travis/install-python.sh
+  - bash travis/build-swig.sh
+  - bash swig_build.sh
 
 script:
   - whoami
