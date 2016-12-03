@@ -28,8 +28,8 @@ before_install:
   #- install_name_tool -change tensorflow/python/_pywrap_tensorflow.so
   - mkdir -p /Users/travis/build/hughperkins/tensorflow-cl/third_party/cuda-on-cl/build/
   - cp tensorflow/third_party/cuda-on-cl/*.dylib /Users/travis/build/hughperkins/tensorflow-cl/third_party/cuda-on-cl/build/
-  - python3 -c 'from tensorflow.python import _pywrap_tensorflow'
-  - python3 -c 'from tensorflow.python import pywrap_tensorflow'
+  - python3 -c 'from tensorflow.python import _pywrap_tensorflow; print("imported")'
+  - python3 -c 'from tensorflow.python import pywrap_tensorflow; print("imported")'
 
 script:
   - whoami
